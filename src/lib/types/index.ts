@@ -50,3 +50,72 @@ export interface UpdateTaskInput {
   assigneeId?: string | null;
   dueDate?: Date | null;
 }
+
+// GitHub Integration Types
+export interface GitHubIntegration {
+  id: string;
+  userId: string;
+  accessToken: string;
+  refreshToken: string | null;
+  githubUserId: number;
+  githubUsername: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface GitHubLink {
+  id: string;
+  taskId: string;
+  githubType: 'issue' | 'pull_request';
+  githubRepo: string;
+  githubNumber: number;
+  githubUrl: string;
+  syncEnabled: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface GitHubIssue {
+  id: number;
+  number: number;
+  title: string;
+  body: string | null;
+  state: 'open' | 'closed';
+  user: {
+    login: string;
+    avatar_url: string;
+  };
+  html_url: string;
+  created_at: string;
+  updated_at: string;
+  repository: {
+    full_name: string;
+  };
+}
+
+export interface GitHubPullRequest {
+  id: number;
+  number: number;
+  title: string;
+  body: string | null;
+  state: 'open' | 'closed';
+  merged: boolean;
+  user: {
+    login: string;
+    avatar_url: string;
+  };
+  html_url: string;
+  created_at: string;
+  updated_at: string;
+  repository: {
+    full_name: string;
+  };
+}
+
+export type GitHubItem = GitHubIssue | GitHubPullRequest;
+
+export interface CreateGitHubLinkInput {
+  taskId: string;
+  githubUrl: string;
+  syncEnabled?: boolean;
+}
